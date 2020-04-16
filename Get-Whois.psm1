@@ -206,12 +206,22 @@ Function Get-Whois
     }
 
     # Determine if there is a referer
-    If($null -ne $Result.refer)
+    If($null -ne $Result.refer -or $null -ne $Result.whois)
     {
         # Ensure that we're not already referred (to stop a loop)
         If(!$Referred)
         {
-            $Result = Get-Whois -Server $Result.refer -Target $Target -Referred
+
+            # If refer exists use that as the refer server, then second preference use whois. I'm not sure if theres a right order, but this sounds right
+            if($null -ne $Result.refer)
+            {
+                $ReferServer = $Result.refer
+            } elseif($null -ne $Result.whois)
+            {
+                $ReferServer = $Result.whois
+            }
+
+            $Result = Get-Whois -Server $ReferServer -Target $Target -Referred
         }
         else 
         {
