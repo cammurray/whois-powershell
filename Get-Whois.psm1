@@ -36,7 +36,7 @@ Function Get-RawWhoisData
     param (
         [Parameter()]
         [String]
-        $Server="whois.arin.net",
+        $Server,
         [Int]
         $Port = 43,
         $Target
