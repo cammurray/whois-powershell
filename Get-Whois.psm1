@@ -48,7 +48,6 @@ Function Get-RawWhoisData
 	}
 	catch
 	{
-		Write-Host -ForegroundColor Red "failed"
 		Throw "Cannot connect to $($Server) on port $($Port)"
     }
     
